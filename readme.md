@@ -59,9 +59,6 @@ https://otexts.com/fpp2/ by Rob Hyndman and George Athanasopoulos
 * Exploratory analysis: Add more methods
 * Add more explanations for everything
 * Add more links to useful tutorials / guides from others
-* Update gradient boosting regression for time series:
-    * Class should accept exogenous variables too
-    * Use the Kaggle Demand Forecasting dataset
+* Update gradient boosting regression class: Should accept exogenous variables too
 * Update ARMA notebook: Add grid search for parameters
 * Update Fourier Transform class: Should work with weekly too
-
