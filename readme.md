@@ -16,6 +16,7 @@ This repository is a collection of notebooks and scripts for helping with handli
 
 `01-data-prepatation.ipynb`: A collection of common data preparation and transformation operations for time series analyis.<br>
 `02-exploratory-analysis.ipynb`: A collection of commonly used exploratory analysis methods and visualizations for time series analysis.<br>
+`03-model-evaluation.ipynb`: A collection of commonly used metrics and visualizations for evaluating the performance of time series forecasting models.<br>
 `11-linear-polynomial-trends.ipynb`: Showcases the custom <i>LinearTrend</i> class for modeling and forecasting time series with linear and polynomial regression models.<br>
 `13-arma-models.ipynb`: Showcases models of the ARMA family (ARIMA, SARIMA, and SARIMAX) using <i>statsmodels.tsa.statespace.sarimax.SARIMAX</i>.<br>
 `14-var-models.ipynb`: Showcases models of the VAR family (VAR, VARMA, and VARMAX) using <i>statsmodels.tsa.statespace.varmax.VARMAX</i>.<br>
@@ -57,6 +58,7 @@ https://otexts.com/fpp2/ by Rob Hyndman and George Athanasopoulos
 ### Updates
 * Data preparation: Add more operations
 * Exploratory analysis: Add more methods
+* Model evaluation: Add more methods
 * Add more explanations for everything
 * Add more links to useful tutorials / guides from others
 * Update gradient boosting regression class: Should accept exogenous variables too

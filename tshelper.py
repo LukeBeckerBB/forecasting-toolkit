@@ -10,9 +10,11 @@ All functions for plotting include an argument for saving the plots as jpeg file
 """
 
 
+
 __author__ = "Christoph Schauer"
-__date__ = "2019-11-15"
-__version__ = "0.2"
+__date__ = "2019-11-29"
+__version__ = "0.3"
+
 
 
 # Imports
@@ -22,6 +24,8 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.graphics import tsaplots
+from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
+
 
 
 def plot_series(*y_args, xlabel=None, ylabel=None, title=None, figsize=(15,5), saveas=None):
@@ -38,8 +42,9 @@ def plot_series(*y_args, xlabel=None, ylabel=None, title=None, figsize=(15,5), s
     if len(y_args) > 1:
         plt.legend(loc="upper left", frameon=True)
     if saveas is not None:
-        plt.savefig(saveas, bbox_inches="tight", pad_inches=0.2)
+        plt.savefig(saveas, dpi=300, bbox_inches="tight", pad_inches=0.2)
     plt.show()
+
 
 
 def plot_seasonal_decompose(y, freq, figsize=(12,8), saveas=None):
@@ -50,35 +55,39 @@ def plot_seasonal_decompose(y, freq, figsize=(12,8), saveas=None):
     # Seasonal decompose
     sc = seasonal_decompose(y, freq=freq)
 
+    # Set up plot
     fig, (ax1, ax2, ax3, ax4) = plt.subplots(4, figsize=figsize, constrained_layout=True)
 
-    # Time series
+    # 1 time series
     y.plot(ax=ax1)
     ax1.set_xlabel(None)
     ax1.set_title("Time series")
 
-    # Trend component
+    # 2 trend component
     sc.trend.plot(ax=ax2, c="tab:orange")
     ax2.set_xlabel(None)
     ax2.set_title("Trend component")
 
-    # Seasonal component
+    # 3 seasonal component
     sc.seasonal.plot(ax=ax3, c="tab:orange")
     ax3.set_xlabel(None)
     ax3.set_title("Seasonal component")
 
-    # Residual component
+    # 4 residual component
     sc.resid.plot(ax=ax4, c="tab:orange")
     ax4.set_xlabel("Date")
     ax4.set_title("Residual component")
 
     if saveas is not None:
-        plt.savefig(saveas, bbox_inches="tight", pad_inches=0.2)
+        plt.savefig(saveas,  dpi=300, bbox_inches="tight", pad_inches=0.2)
     fig.show()
 
 
+
 def plot_acf_pacf(y, lags, alpha=0.05, figsize=(12,8), saveas=None):
-    """Plots the autocorrelation and partical autocorrelation functions."""
+    """
+    Plots the autocorrelation and partical autocorrelation functions.
+    """
 
     fig, (ax1, ax2) = plt.subplots(2, figsize=figsize, constrained_layout=True)
 
@@ -93,16 +102,17 @@ def plot_acf_pacf(y, lags, alpha=0.05, figsize=(12,8), saveas=None):
     ax2.set_xlim(0, lags + 1)
 
     if saveas is not None:
-        plt.savefig(saveas, bbox_inches="tight", pad_inches=0.2)
+        plt.savefig(saveas,  dpi=300, bbox_inches="tight", pad_inches=0.2)
     fig.show()
 
 
+
 def plot_model(
-    y, y_pred, y_fcst, xlabel=None, ylabel=None, title=None, figsize=(15,4), saveas=None
-    ):
+    y, y_pred, y_fcst, xlabel=None, ylabel=None, title=None, figsize=(15,5), saveas=None):
     """
     Plots three time series: True values, predicted values, and forecasted values.
     """
+
     plt.figure(figsize=figsize)
     y.plot(c="tab:blue", label="True values")
     y_pred.plot(c="tab:orange", lw=2, label="Model fit")
@@ -113,14 +123,16 @@ def plot_model(
     plt.title(title)
     plt.legend(loc="upper left", frameon=True)
     if saveas is not None:
-        plt.savefig(saveas, bbox_inches="tight", pad_inches=0.2)
+        plt.savefig(saveas,  dpi=300, bbox_inches="tight", pad_inches=0.2)
     plt.show()
 
 
-def plot_residuals(residuals, figsize=(15,4), saveas=None):
+
+def plot_residuals(residuals, figsize=(15,5), saveas=None):
     """
     Plots residuals over time and the kernel density estimate of a time series of residuals.
     """
+
     fig = plt.figure(figsize=figsize)
     gs = GridSpec(1, 2, width_ratios=[5, 2])
 
@@ -139,18 +151,25 @@ def plot_residuals(residuals, figsize=(15,4), saveas=None):
     ax2.set_title("Kernel density estimate of residuals")
 
     if saveas is not None:
-        plt.savefig(saveas, bbox_inches="tight", pad_inches=0.2)
+        plt.savefig(saveas,  dpi=300, bbox_inches="tight", pad_inches=0.2)
     fig.show()
+
 
 
 def eval_model(y_true, y_pred):
     """
-    Prints R-squared, root mean squared error, and mean absolute error.
+    Prints out several metrics for evaluating the performance of a regression model:
+    - Mean of true values
+    - Mean of predicted values
+    - Mean absolute error
+    - Mean relative error (mean absolute error divided by the mean of true values)
+    - Root mean squared error (RMSE)
+    - Coefficient of determination (R²)
     """
-    rsquared = np.sum((y_pred - np.mean(y_true))**2) / np.sum((y_true - np.mean(y_true))**2)
-    rmse = np.mean((y_true - y_pred)**2)**0.5
-    mae = np.mean(np.abs(y_true - y_pred))
 
-    print("R-squared:               {:.4f}".format(rsquared))
-    print("Root mean squared error: {:.4f}".format(rmse))
-    print("Mean absolute error:     {:.4f}".format(mae))
+    print("Mean of true values:          {:.4f}".format(np.mean(y_true)))
+    print("Mean of predicted values:     {:.4f}".format(np.mean(y_pred)))
+    print("Mean absolute error:          {:.4f}".format(mean_absolute_error(y_true, y_pred)))
+    print("Mean relative error:          {:.4f}".format(mean_absolute_error(y_true, y_pred)/np.mean(y_true)))
+    print("Root mean squared error:      {:.4f}".format(mean_squared_error(y_true, y_pred)**0.5))
+    print("Coefficient of determination: {:.4f}".format(r2_score(y_true, y_pred)))
