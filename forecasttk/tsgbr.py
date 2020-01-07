@@ -1,6 +1,5 @@
 __author__ = "Christoph Schauer"
 __date__ = "2019-11-13"
-__version__ = "0.2"
 
 
 import numpy

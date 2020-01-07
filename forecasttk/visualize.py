@@ -9,14 +9,10 @@ All functions for plotting include an argument for saving the plots as jpeg file
 """
 
 
-
 __author__ = "Christoph Schauer"
 __date__ = "2019-11-29"
-__version__ = "0.3"
 
 
-
-# Imports
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -41,7 +37,6 @@ def plot_series(*y_args, xlabel=None, ylabel=None, title=None, figsize=(15,5), s
     if saveas is not None:
         plt.savefig(saveas, dpi=300, bbox_inches="tight", pad_inches=0.2)
     plt.show()
-
 
 
 def plot_seasonal_decompose(y, freq, figsize=(12,8), saveas=None):
@@ -80,7 +75,6 @@ def plot_seasonal_decompose(y, freq, figsize=(12,8), saveas=None):
     fig.show()
 
 
-
 def plot_acf_pacf(y, lags, alpha=0.05, figsize=(12,8), saveas=None):
     """
     Plots the autocorrelation and partical autocorrelation functions.
@@ -103,7 +97,6 @@ def plot_acf_pacf(y, lags, alpha=0.05, figsize=(12,8), saveas=None):
     fig.show()
 
 
-
 def plot_model(
     y, y_pred, y_fcst, xlabel=None, ylabel=None, title=None, figsize=(15,5), saveas=None):
     """
@@ -122,7 +115,6 @@ def plot_model(
     if saveas is not None:
         plt.savefig(saveas,  dpi=300, bbox_inches="tight", pad_inches=0.2)
     plt.show()
-
 
 
 def plot_residuals(residuals, figsize=(15,5), saveas=None):

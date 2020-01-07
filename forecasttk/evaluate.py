@@ -1,20 +1,10 @@
-"""
-This script contains helper functions for printing out model performance metrics in a clean format.
-"""
-
-
-
 __author__ = "Christoph Schauer"
-__date__ = "2019-11-29"
-__version__ = "0.3"
+__date__ = "2020-07-01"
 
 
-
-# Imports
 import numpy as np
 import pandas as pd
 from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
-
 
 
 def eval_model(y_true, y_pred):
