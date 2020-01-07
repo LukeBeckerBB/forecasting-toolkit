@@ -5,7 +5,6 @@ This script contains helper functions for visualizing:
 - Autocorrelation & partial autocorrelation functions
 - Model forecasts
 - Residuals
-- Model performance metrics
 All functions for plotting include an argument for saving the plots as jpeg file.
 """
 
@@ -24,8 +23,6 @@ import matplotlib.pyplot as plt
 from matplotlib.gridspec import GridSpec
 from statsmodels.tsa.seasonal import seasonal_decompose
 from statsmodels.graphics import tsaplots
-from sklearn.metrics import r2_score, mean_squared_error, mean_absolute_error
-
 
 
 def plot_series(*y_args, xlabel=None, ylabel=None, title=None, figsize=(15,5), saveas=None):
@@ -153,23 +150,3 @@ def plot_residuals(residuals, figsize=(15,5), saveas=None):
     if saveas is not None:
         plt.savefig(saveas,  dpi=300, bbox_inches="tight", pad_inches=0.2)
     fig.show()
-
-
-
-def eval_model(y_true, y_pred):
-    """
-    Prints out several metrics for evaluating the performance of a regression model:
-    - Mean of true values
-    - Mean of predicted values
-    - Mean absolute error
-    - Mean relative error (mean absolute error divided by the mean of true values)
-    - Root mean squared error (RMSE)
-    - Coefficient of determination (R²)
-    """
-
-    print("Mean of true values:          {:.4f}".format(np.mean(y_true)))
-    print("Mean of predicted values:     {:.4f}".format(np.mean(y_pred)))
-    print("Mean absolute error:          {:.4f}".format(mean_absolute_error(y_true, y_pred)))
-    print("Mean relative error:          {:.4f}".format(mean_absolute_error(y_true, y_pred)/np.mean(y_true)))
-    print("Root mean squared error:      {:.4f}".format(mean_squared_error(y_true, y_pred)**0.5))
-    print("Coefficient of determination: {:.4f}".format(r2_score(y_true, y_pred)))

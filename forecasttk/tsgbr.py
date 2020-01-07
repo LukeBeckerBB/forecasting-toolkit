@@ -10,7 +10,7 @@ from sklearn.metrics import mean_squared_error
 from matplotlib import pyplot
 
 
-class TimeSeriesGBR(GradientBoostingRegressor):
+class SeasonalGBRX(GradientBoostingRegressor):
     """
     Child class of sklearn.ensemble.GradientBoostingRegressor, inheriting everything from this 
     class. Extends this class with several attributes and methods for easy-to-use modeling and 
@@ -64,7 +64,6 @@ class TimeSeriesGBR(GradientBoostingRegressor):
             X_endog["dayofweek"] = X_endog["date"].dt.dayofweek  
             
         return X_endog[frequencies]
-
 
 
     def fit_ts(self):
