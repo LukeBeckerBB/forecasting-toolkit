@@ -1,5 +1,5 @@
-/.ipynb_checkpoints
-/forecasttk/__pycache__
+.ipynb_checkpoints/*
+forecasttk/__pycache__/*
 
 12-exponential-smoothing.ipynb
 17-facebook-prophet.ipynb
