@@ -1,9 +1,7 @@
 __author__ = "Christoph Schauer, Alina Nizamutdinova"
 __date__ = "2019-11-13"
-__version__ = "0.2"
 
 
-# Imports
 import numpy
 from pandas import Series, period_range
 from matplotlib import pyplot
