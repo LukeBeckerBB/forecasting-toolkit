@@ -1,0 +1,8 @@
+/.ipynb_checkpoints
+/__pycache__
+
+12-exponential-smoothing.ipynb
+17-facebook-prophet.ipynb
+18-model-blending.ipynb
+19-robustness-cross-validation.ipynb
+modules-for-reqs.py
